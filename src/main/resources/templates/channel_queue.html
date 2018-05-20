@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>veggie.pw - Home</title>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width"/>
+    <base href="/"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+</head>
+
+<body th:with="details = ${#authentication.userAuthentication.details}">
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="#">veggie.pw</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown02" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" th:inline="text">
+                        <img class="rounded-circle dropdown-image" height="35" th:src="@{${'https://cdn.discordapp.com/avatars/' + details.id + '/' + details.avatar + '.jpg'}}" />
+                        [[${details.username}]]#[[${details.discriminator}]]
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
+                        <form th:action="@{/logout}" method="post">
+                            <input class="btn dropdown-item" type="submit" value="Sign out"/>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main role="main" class="container">
+    <div class="card text-center">
+        <div class="card-header bg-primary text-white" th:inline="text">
+            [[${guild}]]: [[${channel}]]
+        </div>
+        <div class="card-body">
+            <table class="table" th:if="${queue != null}">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="song, i : ${queue}">
+                    <th scope="row" th:text="${i.index}"></th>
+                    <td th:text="${song.url}">Mark</td>
+                </tr>
+                </tbody>
+            </table>
+            <p th:unless="${queue != null}">The queue is empty!</p>
+            <form th:action="@{/}" th:object="${song}" method="post">
+                <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control" id="input" placeholder="YouTube URL" th:field="*{url}">
+                </div>
+                <button class="btn btn-primary" type="submit">Add</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js/}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>

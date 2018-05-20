@@ -1,0 +1,39 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.2.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'xyz.scarey'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+    jcenter()
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile('org.springframework.boot:spring-boot-starter-security')
+    compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '3.0.2.RELEASE'
+    compile group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.0.1.RELEASE'
+    compile group: 'org.webjars', name: 'jquery', version: '3.3.1-1'
+	compile group: 'org.webjars', name: 'bootstrap', version: '4.1.0'
+	compile group: 'org.webjars', name: 'webjars-locator', version: '0.34'
+    compile group: 'com.discord4j', name: 'Discord4J', version: '2.10.1'
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
