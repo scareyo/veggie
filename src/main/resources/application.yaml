@@ -4,7 +4,7 @@ discord:
     clientSecret: ${VEGGIE_CLIENT_SECRET}
     accessTokenUri: https://discordapp.com/api/oauth2/token
     userAuthorizationUri: https://discordapp.com/api/oauth2/authorize
-    scope: identify, guilds
+    scope: identify
     clientAuthenticationScheme: query
   resource:
     userInfoUri: https://discordapp.com/api/users/@me

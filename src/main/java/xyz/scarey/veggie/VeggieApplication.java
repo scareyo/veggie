@@ -12,10 +12,6 @@ import xyz.scarey.veggie.bot.VeggieBot;
 public class VeggieApplication {
     public static void main(String[] args) {
         VeggieBot.initialize(System.getenv("VEGGIE_BOT_TOKEN"));
-        IDiscordClient client = VeggieBot.getInstance().getClient();
-        client.getDispatcher().registerListener(new BotEvents());
-        client.login();
-
         SpringApplication.run(VeggieApplication.class, args);
     }
 }

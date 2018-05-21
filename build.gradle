@@ -35,5 +35,6 @@ dependencies {
 	compile group: 'org.webjars', name: 'bootstrap', version: '4.1.0'
 	compile group: 'org.webjars', name: 'webjars-locator', version: '0.34'
     compile group: 'com.discord4j', name: 'Discord4J', version: '2.10.1'
+	compile 'com.sedmelluq:lavaplayer:1.2.63'
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

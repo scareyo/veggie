@@ -15,12 +15,17 @@
 
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
     <div class="container">
-        <a class="navbar-brand" href="#">veggie.pw</a>
+        <a class="navbar-brand" href="/">veggie.pw</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="https://discordapp.com/api/oauth2/authorize?client_id=224376913743839232&permissions=3146752&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Flogin%2Fdiscord&scope=bot">Add Bot</a>
+                </li>
+            </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown02" data-toggle="dropdown"
@@ -42,30 +47,38 @@
 <main role="main" class="container">
     <div class="card text-center">
         <div class="card-header bg-primary text-white" th:inline="text">
-            [[${guild}]]: [[${channel}]]
+            [[${guild}]]
         </div>
         <div class="card-body">
-            <table class="table" th:if="${queue != null}">
+            <form th:action="@{/}" method="post">
+                <div class="form-row">
+                    <div class="col-10">
+                        <input type="text" class="form-control" id="input" placeholder="URL (YouTube, SoundCloud, Bandcamp, Vimeo, Twitch)" name="url">
+                    </div>
+                    <button class="btn btn-primary" type="submit">Add</button>
+                </div>
+            </form>
+
+            <div class="card" style="margin-top:10px" th:if="${current != null}">
+                <div class="card-body card-body bg-secondary text-white" th:inline="text">
+                    Currently playing: [[${current}]]
+                </div>
+            </div>
+
+            <table class="table table-borderless" th:if="${queue.size() > 0}">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">URL</th>
+                    <th scope="col">Title</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="song, i : ${queue}">
-                    <th scope="row" th:text="${i.index}"></th>
-                    <td th:text="${song.url}">Mark</td>
+                    <th scope="row" th:text="${i.index + 1}"></th>
+                    <td th:text="${song.getInfo().title}"></td>
                 </tr>
                 </tbody>
             </table>
-            <p th:unless="${queue != null}">The queue is empty!</p>
-            <form th:action="@{/}" th:object="${song}" method="post">
-                <div class="form-group mx-sm-3 mb-2">
-                    <input type="text" class="form-control" id="input" placeholder="YouTube URL" th:field="*{url}">
-                </div>
-                <button class="btn btn-primary" type="submit">Add</button>
-            </form>
         </div>
     </div>
 </main>
