@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -24,7 +23,10 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="https://discordapp.com/api/oauth2/authorize?client_id=224376913743839232&permissions=3146752&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Flogin%2Fdiscord&scope=bot">Add Bot</a>
+                    <a class="nav-link" href="https://discordapp.com/api/oauth2/authorize?client_id=448222363168014336&permissions=3146752&scope=bot">Add Bot</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/settings">Settings</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -46,7 +48,16 @@
 </nav>
 
 <main role="main" class="container">
-
+    <div class="card-deck">
+        <div class="card col-4" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Music</h5>
+                <p class="card-text">Queue up music in your guild's music channel.</p>
+                <a href="/music" class="btn btn-primary" th:if="${musicEnabled} == true">Go</a>
+                <a href="/music" class="btn btn-secondary disabled" th:if="${musicEnabled} == false">Go</a>
+            </div>
+        </div>
+    </div>
 </main>
 
 <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js/}"></script>

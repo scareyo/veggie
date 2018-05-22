@@ -14,10 +14,4 @@ public class LoginController {
     public String login() {
         return "login";
     }
-
-    @RequestMapping("/user")
-    @ResponseBody
-    public Principal user(Principal principal) {
-        return principal;
-    }
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>veggie.pw - Home</title>
+    <title>veggie.pw - Music</title>
     <meta name="description" content=""/>
     <meta name="viewport" content="width=device-width"/>
     <base href="/"/>
@@ -23,7 +23,10 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="https://discordapp.com/api/oauth2/authorize?client_id=224376913743839232&permissions=3146752&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Flogin%2Fdiscord&scope=bot">Add Bot</a>
+                    <a class="nav-link" href="https://discordapp.com/api/oauth2/authorize?client_id=448222363168014336&permissions=3146752&scope=bot">Add Bot</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/settings">Settings</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -45,7 +48,7 @@
 </nav>
 
 <main role="main" class="container">
-    <div class="card text-center">
+    <div class="card text-center" th:if="${guild != null}">
         <div class="card-header bg-primary text-white" th:inline="text">
             [[${guild}]]
         </div>
@@ -80,6 +83,9 @@
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="alert alert-info" th:unless="${guild != null}">
+        You must be connected to a voice channel in a guild that has Veggie bot!
     </div>
 </main>
 

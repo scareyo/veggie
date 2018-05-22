@@ -1,3 +1,5 @@
+server:
+  port: 80
 discord:
   client:
     clientId: ${VEGGIE_CLIENT_ID}
