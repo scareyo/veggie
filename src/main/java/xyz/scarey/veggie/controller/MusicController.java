@@ -58,7 +58,7 @@ public class MusicController {
     public String addSong(@RequestParam(value="url") String url, OAuth2Authentication auth) {
         IVoiceChannel voiceChannel = getVoiceChannel(auth);
         VeggieBot.getInstance().loadAndPlay(voiceChannel, url);
-        return "redirect:/";
+        return "redirect:/music";
     }
 
     private IVoiceChannel getVoiceChannel(OAuth2Authentication auth) {
