@@ -53,7 +53,7 @@
             [[${guild}]]
         </div>
         <div class="card-body">
-            <form th:action="@{/music}" method="post">
+            <form th:action="@{/music/add}" method="post">
                 <div class="form-row">
                     <div class="col-10">
                         <input type="text" class="form-control" id="input" placeholder="URL (YouTube, SoundCloud, Bandcamp, Vimeo, Twitch)" name="url">
@@ -64,7 +64,10 @@
 
             <div class="card" style="margin-top:10px" th:if="${current != null}">
                 <div class="card-body card-body bg-secondary text-white" th:inline="text">
-                    Currently playing: [[${current}]]
+                    Currently playing: [[${current.getInfo().title}]]
+                    <form action="#" th:action="@{/music/skip(identifier=${current.getInfo().identifier})}" method="post">
+                        <button class="btn btn-secondary" type="submit" value="Skip" />
+                    </form>
                 </div>
             </div>
 

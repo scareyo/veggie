@@ -1,20 +1,17 @@
 package xyz.scarey.veggie.controller;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.handle.obj.IVoiceChannel;
 import sx.blah.discord.handle.obj.IVoiceState;
+import xyz.scarey.veggie.bot.GuildMusicManager;
 import xyz.scarey.veggie.bot.TrackScheduler;
 import xyz.scarey.veggie.bot.VeggieBot;
 
@@ -46,7 +43,7 @@ public class MusicController {
             model.addAttribute("guild", guild.getName());
             model.addAttribute("channel", channel.getName());
             if (player.getPlayingTrack() != null) {
-                model.addAttribute("current", player.getPlayingTrack().getInfo().title);
+                model.addAttribute("current", player.getPlayingTrack());
             }
             model.addAttribute("queue", scheduler.getQueue());
         }
@@ -54,10 +51,22 @@ public class MusicController {
         return "music";
     }
 
-    @PostMapping("/music")
+    @PostMapping("/music/add")
     public String addSong(@RequestParam(value="url") String url, OAuth2Authentication auth) {
         IVoiceChannel voiceChannel = getVoiceChannel(auth);
         VeggieBot.getInstance().loadAndPlay(voiceChannel, url);
+        return "redirect:/music";
+    }
+
+    @PostMapping("/music/skip")
+    public String skipSong(@RequestParam("identifier") String identifier, OAuth2Authentication auth) {
+        IVoiceChannel voiceChannel = getVoiceChannel(auth);
+        GuildMusicManager musicManager = VeggieBot.getInstance().getGuildMusicManager(voiceChannel.getGuild());
+
+        if (musicManager.getPlayer().getPlayingTrack().getInfo().identifier.equals(identifier)) {
+            musicManager.getScheduler().nextTrack();
+        }
+
         return "redirect:/music";
     }
 

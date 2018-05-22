@@ -87,7 +87,6 @@ public class VeggieBot {
 
     private void play(IGuild guild, GuildMusicManager musicManager, AudioTrack track) {
         connectToFirstVoiceChannel(guild.getAudioManager());
-
         musicManager.getScheduler().queue(track);
     }
 
